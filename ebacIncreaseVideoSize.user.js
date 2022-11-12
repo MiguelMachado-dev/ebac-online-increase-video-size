@@ -22,11 +22,10 @@
     const kalturaPlayer = document?.querySelector(".lesson__block--kaltura")?.style;
 
     if (!content || !kalturaPlayer) return;
+    if (content.maxWidth) return
 
     content.maxWidth = "inherit";
     kalturaPlayer.maxWidth = "inherit";
-    
-    clearInterval(pageURLCheckTimer);
   };
 
   // // https://stackoverflow.com/a/18997637
