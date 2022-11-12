@@ -25,6 +25,8 @@
 
     content.maxWidth = "inherit";
     kalturaPlayer.maxWidth = "inherit";
+    
+    clearInterval(pageURLCheckTimer);
   };
 
   // // https://stackoverflow.com/a/18997637
