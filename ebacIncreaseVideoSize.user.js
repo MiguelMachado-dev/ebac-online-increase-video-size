@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EBAC Online - Bigger video screen size
 // @namespace    https://github.com/MiguelMachado-dev/ebac-online-increase-video-size
-// @version      0.2.3
+// @version      0.2.4
 // @description  Get a bigger video screen size on EBAC lessons
 // @updateURL    https://github.com/MiguelMachado-dev/ebac-online-increase-video-size/raw/main/ebacIncreaseVideoSize.user.js
 // @downloadURL  https://github.com/MiguelMachado-dev/ebac-online-increase-video-size/raw/main/ebacIncreaseVideoSize.user.js
@@ -13,15 +13,31 @@
 // ==/UserScript==
 
 (function () {
-  'use strict';
+  "use strict";
+
+  const SECONDS = 1 * 1000;
 
   const adjustScreenSize = () => {
-    const content = document.querySelector('.lesson__page-main-content');
-    const kalturaPlayer = document.querySelector('.lesson__block--kaltura');
+    const content = document?.querySelector(".lesson__page-main-content")?.style;
+    const kalturaPlayer = document?.querySelector(".lesson__block--kaltura")?.style;
 
-    content.style.maxWidth = 'inherit';
-    kalturaPlayer.style.maxWidth = 'inherit';
+    if (!content || !kalturaPlayer) return;
+
+    content.maxWidth = "inherit";
+    kalturaPlayer.maxWidth = "inherit";
   };
 
-  adjustScreenSize();
+  // // https://stackoverflow.com/a/18997637
+  const pageURLCheckTimer = setInterval(function () {
+    if (
+      this.lastPathStr !== location.pathname ||
+      this.lastQueryStr !== location.search ||
+      (this.lastHashStr !== location.hash)
+    ) {
+      this.lastPathStr = location.pathname;
+      this.lastQueryStr = location.search;
+      this.lastHashStr = location.hash;
+      adjustScreenSize();
+    }
+  }, SECONDS);
 })();
